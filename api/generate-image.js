@@ -43,12 +43,17 @@ app.post('/api/generate-image', async (req, res) => {
 
     console.log(`Using API key index: ${currentKeyIndex - 1 < 0 ? API_KEYS.length - 1 : currentKeyIndex - 1}`);
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+    // Use the gemini-2.0-flash-preview-image-generation model which does not require billing
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent?key=${apiKey}`;
 
     try {
         const payload = {
-            instances: [{ prompt }],
-            parameters: { "sampleCount": 1 }
+            contents: [{
+                parts: [{ text: prompt }]
+            }],
+            generationConfig: {
+                responseModalities: ['TEXT', 'IMAGE']
+            },
         };
 
         const response = await fetch(apiUrl, {
@@ -58,14 +63,13 @@ app.post('/api/generate-image', async (req, res) => {
         });
 
         if (!response.ok) {
-            // Handle specific API errors
             const errorBody = await response.json();
             console.error('API error:', errorBody);
             return res.status(response.status).json({ error: errorBody.error.message || 'API error' });
         }
 
         const result = await response.json();
-        const base64Data = result?.predictions?.[0]?.bytesBase64Encoded;
+        const base64Data = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
 
         if (base64Data) {
             res.status(200).json({ base64Data });
@@ -83,4 +87,3 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-  
