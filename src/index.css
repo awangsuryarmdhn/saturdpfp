@@ -19,3 +19,32 @@ body {
   margin: 0;
   min-height: 100vh;
 }
+
+/* CSS for the cosmic background animation */
+@keyframes move-stars-1 {
+    from { background-position: 0 0; }
+    to { background-position: -2000px -2000px; }
+}
+
+@keyframes move-stars-2 {
+    from { background-position: 0 0; }
+    to { background-position: 2000px 2000px; }
+}
+
+.animated-cosmic-bg {
+    /* Base gradient for the background color */
+    background-color: #0d0426;
+    
+    /* Two layers of stars for a parallax effect */
+    background-image:
+        radial-gradient(ellipse at 150% 150%, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+    
+    /* Background size for the star patterns */
+    background-size: 200px 200px, 400px 400px;
+
+    /* Background animation for a slow, cosmic movement */
+    animation: move-stars-1 200s linear infinite;
+    animation: move-stars-2 300s linear infinite;
+}
+
