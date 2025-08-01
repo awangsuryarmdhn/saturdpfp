@@ -43,17 +43,14 @@ app.post('/api/generate-image', async (req, res) => {
 
     console.log(`Using API key index: ${currentKeyIndex - 1 < 0 ? API_KEYS.length - 1 : currentKeyIndex - 1}`);
 
-    // Use the gemini-2.0-flash-preview-image-generation model which does not require billing
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent?key=${apiKey}`;
+    // Use the gemini-2.5-flash-preview-05-20 model which does not require billing
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
     try {
         const payload = {
             contents: [{
                 parts: [{ text: prompt }]
             }],
-            generationConfig: {
-                responseModalities: ['TEXT', 'IMAGE']
-            },
         };
 
         const response = await fetch(apiUrl, {
