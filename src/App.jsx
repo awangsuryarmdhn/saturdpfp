@@ -10,7 +10,7 @@ const SparklesIcon = () => (
 
 const DownloadIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-3-2v-4" />
         <polyline points="7 10 12 15 17 10" />
         <line x1="12" y1="15" x2="12" y2="3" />
     </svg>
@@ -145,37 +145,6 @@ export default function App() {
 
     return (
         <div className="animated-cosmic-bg min-h-screen flex flex-col items-center justify-center p-4 font-inter text-white">
-            <style>
-                {`
-                /* CSS for the cosmic background animation */
-                @keyframes move-stars-1 {
-                    from { background-position: 0 0; }
-                    to { background-position: -2000px -2000px; }
-                }
-
-                @keyframes move-stars-2 {
-                    from { background-position: 0 0; }
-                    to { background-position: 2000px 2000px; }
-                }
-
-                .animated-cosmic-bg {
-                    /* Base gradient for the background color */
-                    background-color: #0d0426;
-                    
-                    /* Two layers of stars for a parallax effect */
-                    background-image:
-                        radial-gradient(ellipse at 150% 150%, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
-                        radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
-                    
-                    /* Background size for the star patterns */
-                    background-size: 200px 200px, 400px 400px;
-
-                    /* Background animation for a slow, cosmic movement */
-                    animation: move-stars-1 200s linear infinite;
-                    animation: move-stars-2 300s linear infinite;
-                }
-                `}
-            </style>
             <div className="w-full max-w-lg bg-slate-900/50 backdrop-blur-sm rounded-[2rem] shadow-2xl p-6 md:p-10 space-y-8 border border-cyan-700">
                 
                 <div className="text-center">
@@ -317,4 +286,3 @@ export default function App() {
         </div>
     );
 }
-
